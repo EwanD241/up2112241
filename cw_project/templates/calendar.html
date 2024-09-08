@@ -26,7 +26,7 @@
                 selectable: true, //Lets the user select days on the calendar
                 selectHelper: true, //Shows a visual aid of the selection
                 editable: true, //Allows events to be dragged and dropped
-                eventLimit: true, //Limits the number of events shown in each day
+                eventLimit: true, //Limits the number of events shown in each day before collapsing them
                 
                 //Creates a new event
                 select: function (start, end) {
@@ -34,13 +34,14 @@
                     if (title) {
                         var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-                        $.ajax({
+                        //Sends a request to the backend
+                        $.ajax({ 
                             type: "GET",
-                            url: '/calendar/new_entry',
+                            url: '/calendar/new_entry', //Specifies the new_entry function
                             data: {'title': title, 'start': start, 'end': end},
                             dataType: "json",
                             success: function (data) {
-                                calendar.fullCalendar('refetchEvents');
+                                calendar.fullCalendar('refetchEvents'); //Refreshes the calendar
                                 alert("your entry has been addded");
                             },
                             error: function (data) {
@@ -52,13 +53,13 @@
 
                 //Allows for the event to be resized
                 eventResize: function (entry) {
-                    var start = $.fullCalendar.formatDate(entry.start, "Y-MM-DD");
+                    var start = $.fullCalendar.formatDate(entry.start, "Y-MM-DD"); 
                     var end = $.fullCalendar.formatDate(entry.end, "Y-MM-DD");
                     var title = entry.title;
                     var id = entry.id;
                     $.ajax({
                         type: "GET",
-                        url: '/calendar/update',
+                        url: '/calendar/update', //Calls the update function
                         data: {'title': title, 'start': start, 'end': end, 'id': id},
                         dataType: "json",
                         success: function (data) {
@@ -79,7 +80,7 @@
                     var id = entry.id;
                     $.ajax({
                         type: "GET",
-                        url: '/calendar/update',
+                        url: '/calendar/update', //Calls the update function
                         data: {'title': title, 'start': start, 'end': end, 'id': id},
                         dataType: "json",
                         success: function (data) {
@@ -98,7 +99,7 @@
                         var id = entry.id;
                         $.ajax({
                             type: "GET",
-                            url: '/calendar/remove',
+                            url: '/calendar/remove', //Calls the remove function
                             data: {'id': id},
                             dataType: "json",
                             success: function (data) {
