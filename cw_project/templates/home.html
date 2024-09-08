@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Displays the logout, calendar and to-do redirect buttons if the user is logged in-->
+<div class="buttons-container">
+{% if user.is_authenticated %}
+    Welcome back, {{ user.username }}!
+    <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+    </form>
+    <form action="{% url 'calendar' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Calendar</button>
+    </form>
+    <form action="{% url 'todo' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">To-Do</button>
+      </form>
+{% else %}
+<!-- Displays the login and registration redirect buttons if the user is not logged in-->
+    <p>You aren't logged in</p>
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Click here to log in</button>
+    </form>
+    <form action="{% url 'signup' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Don't have an account?</button>
+    </form>
+{% endif %}
+{% endblock %}

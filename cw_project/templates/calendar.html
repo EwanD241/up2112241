@@ -1,0 +1,135 @@
+<html>
+<head>
+    <!--Loads styles for the page, including the bootstrap theme for the calendar-->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css"/>
+    <!--Loads the libraries-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script>
+        //Initialises FullCalendar
+        $(document).ready(function () {
+            var calendar = $('#calendar').fullCalendar({
+                themeSystem: 'bootstrap', //Uses FullCalendar's bootstrap theme
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''
+                },
+                titleFormat: 'MMMM YYYY', //Displays month and year as the title
+                events: '/calendar/all_entries', //Loads the events
+                allDayDefault: true, //Sets the events as all-day events
+                selectable: true, //Lets the user select days on the calendar
+                selectHelper: true, //Shows a visual aid of the selection
+                editable: true, //Allows events to be dragged and dropped
+                eventLimit: true, //Limits the number of events shown in each day
+                
+                //Creates a new event
+                select: function (start, end) {
+                    var title = prompt("Enter Entry Name");
+                    if (title) {
+                        var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
+                        var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
+                        $.ajax({
+                            type: "GET",
+                            url: '/calendar/new_entry',
+                            data: {'title': title, 'start': start, 'end': end},
+                            dataType: "json",
+                            success: function (data) {
+                                calendar.fullCalendar('refetchEvents');
+                                alert("your entry has been addded");
+                            },
+                            error: function (data) {
+                                alert('Unable to add your entry');
+                            }
+                        });
+                    } 
+                },
+
+                //Allows for the event to be resized
+                eventResize: function (entry) {
+                    var start = $.fullCalendar.formatDate(entry.start, "Y-MM-DD");
+                    var end = $.fullCalendar.formatDate(entry.end, "Y-MM-DD");
+                    var title = entry.title;
+                    var id = entry.id;
+                    $.ajax({
+                        type: "GET",
+                        url: '/calendar/update',
+                        data: {'title': title, 'start': start, 'end': end, 'id': id},
+                        dataType: "json",
+                        success: function (data) {
+                            calendar.fullCalendar('refetchEvents');
+                            alert('Your entry has been updated');
+                        },
+                        error: function (data) {
+                            alert('Unable to update your entry');
+                        }
+                    });
+                },
+
+                //Allows the saving of events changing days
+                eventDrop: function (entry) {
+                    var start = $.fullCalendar.formatDate(entry.start, "Y-MM-DD");
+                    var end = $.fullCalendar.formatDate(entry.end, "Y-MM-DD");
+                    var title = entry.title;
+                    var id = entry.id;
+                    $.ajax({
+                        type: "GET",
+                        url: '/calendar/update',
+                        data: {'title': title, 'start': start, 'end': end, 'id': id},
+                        dataType: "json",
+                        success: function (data) {
+                            calendar.fullCalendar('refetchEvents');
+                            alert('Your entry has been updated');
+                        },
+                        error: function (data) {
+                            alert('Unable to update your entry');
+                        }
+                    });
+                },
+
+                //Allows for the deletion of events
+                eventClick: function (entry) {
+                    if (confirm("Confirm entry deletion:")) {
+                        var id = entry.id;
+                        $.ajax({
+                            type: "GET",
+                            url: '/calendar/remove',
+                            data: {'id': id},
+                            dataType: "json",
+                            success: function (data) {
+                                calendar.fullCalendar('refetchEvents');
+                                alert('Your entry has been deleted');
+                            },
+                            error: function (data) {
+                                alert('Unable to delete your entry');
+                            }
+                        });
+                    }
+                },
+
+            });
+        });
+
+    </script>
+</head>
+<body>
+<br/>
+<br/>
+<div class="container">
+    <div id="calendar"></div>
+</div>
+<!--Creates a logout and home button on the page-->
+<div class="cal-btn-container">
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-logout">Log Out</button>
+</form>
+<a href="{% url 'home' %}" class="btn btn-home">Go to Homepage</a>
+</div>
+</body>
+</html>

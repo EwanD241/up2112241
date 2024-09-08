@@ -1,0 +1,193 @@
+/* CSS for the homepage button positions*/
+.buttons-container {
+    /*Enables flexbox */
+    display: flex;
+    /* Puts the buttons on top of each other*/
+    flex-direction: column;
+    /*Centres the buttons horizontally */
+    justify-content: center;
+    /* Centers the buttons vertically*/
+    align-items: center;
+    /* Uses the full viewport height*/
+    height: 100vh;
+    /* Changes the spacing between buttons*/
+    gap: 20px;
+    /*Sets the font */
+    font-family: Arial, Helvetica, sans-serif;
+    /* Changes the font size*/
+    font-size: larger;
+}
+
+button {
+    /* Changes the button padding*/
+    padding: 12px 24px;
+    /* Changes the font type*/
+    font-family: Arial, Helvetica, sans-serif;
+    /* Changes the font size*/
+    font-size: 16px;
+    /* Changes the colour of the buttons*/
+    background-color: #7e22cd;
+    /* Changes the colour of the button text*/
+    color: white;
+    /* Curves the corners of the buttons*/
+    border-radius: 5px;
+    /* Changes the cursor when hovering over a button */
+    cursor: pointer;
+    /* Transitions the button colour when hovering over a button*/
+    transition: background-color 0.3s;
+}
+
+/* Determines the background colour when hovering over a button*/
+button:hover {
+    background-color: #55168d;
+}
+
+/* Changes the font of paragraphs*/
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cal-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn-logout {
+    padding: 12px 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: #7e22cd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+    height: 35px;
+}
+
+.btn-logout:hover {
+    background-color: #55168d;
+}
+
+.btn-home {
+    padding: 12px 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: #7e22cd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+    height: 35px;
+    text-decoration: none;
+}
+
+.btn-home:hover {
+    background-color: #55168d;
+}
+
+.log-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+ul.errorlist{
+    display:none;
+}
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.btn-addtask {
+    font-size: 16px;
+    background-color: #7e22cd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 35px;
+    padding: 10px;
+}
+
+.btn-delete {
+    font-size: 12px;
+    background-color: #7d22cda4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 35px;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-delete:hover {
+    background-color: #55168d;
+}
+
+.todo-task{
+    font-family: Arial, sans-serif;
+    font-size: large;
+    font-weight:500;
+    padding: 2px;
+}
+
+.todo-title{
+    font-family: Arial, sans-serif;
+    font-size: 48px;
+}
+
+.todo-input{
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+}
+
+.todo-home {
+    padding: 12px 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: #7e22cd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+    text-decoration: none;
+    height: 12px;
+}
+
+.todo-home:hover {
+    background-color: #55168d;
+}
